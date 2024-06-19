@@ -46,11 +46,14 @@ contract Degen is ERC20, Ownable {
         uint256 itemCost = items[itemId].cost;
 
         require(user_balance > itemCost, "You don't have enough tokens");
-
-        userItems[user].push(itemId);
+	itemMapper(user, itemId);
         
     }
     
+    function itemMapper(address _user, uint256 _itemId) internal {
+	userItems[_user].push(_itemId);
+    }
+
     function getUserItems(address user) external view returns (uint256[] memory) {
         return userItems[user];
     }
